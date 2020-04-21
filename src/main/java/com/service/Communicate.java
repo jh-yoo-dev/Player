@@ -8,13 +8,10 @@ import com.model.Player;
 public class Communicate {
     private final List<Player> list = new ArrayList<>();
 
-    public void registPlayer(Player player){
-        System.out.println("Intialize Player :: " + player.getname());
+    public void registPlayer(Player player) {
+        System.out.println("Registered Player :: " + player.getName());
         player.initialize(this);
         list.add(player);
-    }
-    
-    public void send(String player, String message){
     }
 
     private Player sendMessage(Player player, String message){
@@ -22,8 +19,27 @@ public class Communicate {
         return player;
     }
 
+    public void send(String name, String message) {
+        try {
+            list.stream()
+            .filter(player -> isSendPlayer(player, name))
+            .findFirst()
+            .map(player -> sendMessage(player, message));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void exit(){
         System.out.println("Communicating is Finished");
         System.exit(0);
+    }
+      
+    private boolean isSendPlayer(Player player, String name) {
+        if(name.equals(player.getName())){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

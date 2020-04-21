@@ -15,7 +15,7 @@ public class Player {
         this.name = name;
     }
 
-    public String getname(){
+    public String getName(){
         return name;
     }
 
@@ -36,15 +36,15 @@ public class Player {
     }
 
     public void sendMessage(String message) {
-        System.out.println(name + " :: " + message);
+        System.out.println(name + " send message :: " + message);
         this.setSentCount(this.getSentCount() + 1);
-        // communicate.send(name, message);
+        communicate.send(name, message);
     }
 
     public void receiveMessage(String message) {
-        System.out.println(name + " :: " + message);
+        System.out.println(name + " received message :: " + message);
         this.setReceivedCount(this.getReceivedCount()+1);
-        message = message + " count :: " +sentCount;
+        message = message + " " + this.sentCount;
         if(sentCount!=10 && receivedCount!=10){
             sendMessage(message);        
         }else {
